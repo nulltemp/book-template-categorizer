@@ -30,6 +30,20 @@ export default function Home() {
               <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
                 ログイン済みです。書籍テンプレートのカテゴライザーをお楽しみください。
               </p>
+              <div className="flex flex-col gap-2 mt-4">
+                <a
+                  href="/protected-page-1"
+                  className="text-blue-500 hover:underline"
+                >
+                  保護されたページ 1 へ
+                </a>
+                <a
+                  href="/protected-page-2"
+                  className="text-blue-500 hover:underline"
+                >
+                  保護されたページ 2 へ
+                </a>
+              </div>
             </>
           ) : (
             <>
