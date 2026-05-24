@@ -1,24 +1,46 @@
-"use client";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { drizzle } from "drizzle-orm/libsql";
+import { eq } from "drizzle-orm";
+import { createClient } from "@libsql/client";
+import { usersTable } from "../db/schema/users";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+export default async function ProtectedPage1() {
+  const session = await getServerSession(authOptions);
 
-export default function ProtectedPage1() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "loading") return; // セッションの読み込み中
-    if (!session) {
-      // セッションがない場合、ログインページにリダイレクト
-      router.push("/"); // または特定のログインページ
-    }
-  }, [session, status, router]);
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
+  if (!session) {
+    redirect("/");
   }
+
+  const client = createClient({
+    url: process.env.TURSO_DATABASE_URL!,
+    authToken: process.env.TURSO_AUTH_TOKEN!,
+  });
+  const db = drizzle({ client });
+
+  const user: typeof usersTable.$inferInsert = {
+    name: "John",
+    age: 30,
+    email: "john@example.com",
+  };
+
+  await db.insert(usersTable).values(user);
+  console.log("New user created!");
+
+  const users = await db.select().from(usersTable);
+  console.log("Getting all users from the database: ", users);
+
+  await db
+    .update(usersTable)
+    .set({
+      age: 31,
+    })
+    .where(eq(usersTable.email, user.email));
+  console.log("User info updated!");
+
+  await db.delete(usersTable).where(eq(usersTable.email, user.email));
+  console.log("User deleted!");
 
   if (!session) {
     return <div>アクセス権がありません。ログインしてください。</div>;
