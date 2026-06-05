@@ -5,9 +5,9 @@ import { loadEnvConfig } from '@next/env';
 loadEnvConfig(cwd());
 
 export default defineConfig({
-  out: './drizzle',
+  out: './migrations',
   dialect: 'turso',
-  schema: './app/db/schema',
+  schema: './src/db/schema',
   dbCredentials: {
     url: process.env.TURSO_DATABASE_URL!,
     authToken: process.env.TURSO_AUTH_TOKEN,

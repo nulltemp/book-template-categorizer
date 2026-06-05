@@ -1,0 +1,104 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "eb4f587b-9a32-40af-a04d-530eeafb0b2a",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "ddl": [
+    {
+      "name": "book_template",
+      "entityType": "tables"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "book_template"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "userId",
+      "entityType": "columns",
+      "table": "book_template"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "name",
+      "entityType": "columns",
+      "table": "book_template"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "width",
+      "entityType": "columns",
+      "table": "book_template"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "height",
+      "entityType": "columns",
+      "table": "book_template"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "book_template_pk",
+      "table": "book_template",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "userId",
+        "name"
+      ],
+      "nameExplicit": false,
+      "name": "book_template_userId_name_unique",
+      "entityType": "uniques",
+      "table": "book_template"
+    },
+    {
+      "columns": [
+        "userId",
+        "width",
+        "height"
+      ],
+      "nameExplicit": false,
+      "name": "book_template_userId_width_height_unique",
+      "entityType": "uniques",
+      "table": "book_template"
+    },
+    {
+      "columns": [
+        "name"
+      ],
+      "nameExplicit": false,
+      "name": "book_template_name_unique",
+      "entityType": "uniques",
+      "table": "book_template"
+    }
+  ],
+  "renames": []
+}
